@@ -2,9 +2,10 @@ package com.mysite.dsprojectspring3.services;
 
 import com.mysite.dsprojectspring3.dto.CategoryDTO;
 import com.mysite.dsprojectspring3.entites.Category;
-import com.mysite.dsprojectspring3.exceptions.ResourceNotFoundException;
+import com.mysite.dsprojectspring3.exceptions.*;
 import com.mysite.dsprojectspring3.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +50,16 @@ public class CategoryService {
             return new CategoryDTO(entity);
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
+        }
+    }
+
+    public void update(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Id not found " + id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Integrity violation");
         }
     }
 }
