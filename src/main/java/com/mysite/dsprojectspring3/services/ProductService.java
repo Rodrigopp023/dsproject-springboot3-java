@@ -3,8 +3,7 @@ package com.mysite.dsprojectspring3.services;
 import com.mysite.dsprojectspring3.dto.*;
 import com.mysite.dsprojectspring3.entites.*;
 import com.mysite.dsprojectspring3.exceptions.*;
-import com.mysite.dsprojectspring3.repositories.CategoryRepository;
-import com.mysite.dsprojectspring3.repositories.ProductRepository;
+import com.mysite.dsprojectspring3.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.*;
 import org.springframework.data.domain.*;
@@ -23,8 +22,8 @@ public class ProductService {
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAllPaged(PageRequest pageRequest) {
-        Page<Product> list = repository.findAll(pageRequest);
+    public Page<ProductDTO> findAllPaged(Pageable pageable) {
+        Page<Product> list = repository.findAll(pageable);
         return list.map(x -> new ProductDTO(x));
     }
 
