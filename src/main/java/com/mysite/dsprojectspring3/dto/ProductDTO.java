@@ -1,7 +1,6 @@
 package com.mysite.dsprojectspring3.dto;
 
-import com.mysite.dsprojectspring3.entites.Category;
-import com.mysite.dsprojectspring3.entites.Product;
+import com.mysite.dsprojectspring3.entites.*;
 
 import java.io.Serializable;
 import java.time.Instant;

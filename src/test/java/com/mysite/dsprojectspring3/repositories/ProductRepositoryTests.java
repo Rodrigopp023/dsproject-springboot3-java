@@ -1,10 +1,10 @@
 package com.mysite.dsprojectspring3.repositories;
 
 import com.mysite.dsprojectspring3.entites.Product;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.Optional;
 
@@ -23,4 +23,12 @@ public class ProductRepositoryTests {
         Assertions.assertFalse(result.isPresent());
     }
 
+    @Test
+    public void deleteShouldThrowEmptyResultDataAccessExceptionWhenIdDoesNotExist() {
+        long nonExistingId = 1000L;
+
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+            repository.deleteById(nonExistingId);
+        });
+    }
 }
