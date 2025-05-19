@@ -4,6 +4,7 @@ import com.mysite.dsprojectspring3.dto.*;
 import com.mysite.dsprojectspring3.entites.*;
 import com.mysite.dsprojectspring3.exceptions.*;
 import com.mysite.dsprojectspring3.repositories.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.*;
 import org.springframework.data.domain.*;
@@ -50,7 +51,7 @@ public class ProductService {
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
             return new ProductDTO(entity);
-        } catch (ResourceNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }

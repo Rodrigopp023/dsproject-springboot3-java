@@ -4,6 +4,7 @@ import com.mysite.dsprojectspring3.dto.CategoryDTO;
 import com.mysite.dsprojectspring3.entites.Category;
 import com.mysite.dsprojectspring3.exceptions.*;
 import com.mysite.dsprojectspring3.repositories.CategoryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.*;
 import org.springframework.data.domain.*;
@@ -47,7 +48,7 @@ public class CategoryService {
             entity.setName(dto.getName());
             entity = repository.save(entity);
             return new CategoryDTO(entity);
-        } catch (ResourceNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }
